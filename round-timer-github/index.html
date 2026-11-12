@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#0b0d10" />
+    <meta name="description" content="Round Timer : chronomètre sportif par rounds, utilisable hors connexion." />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Round Timer" />
+    <link rel="manifest" href="manifest.webmanifest" />
+    <link rel="apple-touch-icon" href="icons/icon-192.png" />
+    <link rel="icon" href="icons/icon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="styles.css" />
+    <title>Round Timer</title>
+  </head>
+  <body>
+    <svg class="icon-sprite" aria-hidden="true" focusable="false">
+      <symbol id="i-stopwatch" viewBox="0 0 24 24"><circle cx="12" cy="13" r="8"/><path d="M12 13V8M9 2h6M12 5V2M19 6l1.5-1.5"/></symbol>
+      <symbol id="i-flame" viewBox="0 0 24 24"><path d="M12.2 2.8c.9 3.7-1.7 5.1-1.7 7.4 0 1.2.8 2 1.8 2.3-.3-2 1-3.2 2.1-4.2 2.2 1.8 3.5 4 3.5 6.8A5.9 5.9 0 0 1 12 21a6 6 0 0 1-5.9-5.9c0-3.4 2.2-5.9 4.5-8.1.5 1.9.7 3.1 1.6 4.1 1-2.2-.5-5.5 0-8.3Z"/></symbol>
+      <symbol id="i-coffee" viewBox="0 0 24 24"><path d="M4 8h13v7a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5V8Z"/><path d="M17 10h1a3 3 0 0 1 0 6h-1M6 3v2M10 3v2M14 3v2M3 22h16"/></symbol>
+      <symbol id="i-layers" viewBox="0 0 24 24"><path d="m12 3 9 5-9 5-9-5 9-5Z"/><path d="m3 12 9 5 9-5M3 16l9 5 9-5"/></symbol>
+      <symbol id="i-gear" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1-2.3 2.3-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.5v.2h-3.2v-.2a1.7 1.7 0 0 0-1-1.5 1.7 1.7 0 0 0-1.9.3l-.1.1L6 17l.1-.1a1.7 1.7 0 0 0 .3-1.9 1.7 1.7 0 0 0-1.5-1H4.7v-3.2h.2a1.7 1.7 0 0 0 1.5-1 1.7 1.7 0 0 0-.3-1.9L6 7.8 8.3 5.5l.1.1a1.7 1.7 0 0 0 1.9.3 1.7 1.7 0 0 0 1-1.5v-.2h3.2v.2a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.9-.3l.1-.1 2.3 2.3-.1.1a1.7 1.7 0 0 0-.3 1.9 1.7 1.7 0 0 0 1.5 1h.2V14h-.2a1.7 1.7 0 0 0-1.5 1Z"/></symbol>
+      <symbol id="i-volume" viewBox="0 0 24 24"><path d="M4 10v4h4l5 4V6l-5 4H4Z"/><path d="M16 9a4 4 0 0 1 0 6M18.5 6.5a7.5 7.5 0 0 1 0 11"/></symbol>
+      <symbol id="i-play" viewBox="0 0 24 24"><path d="m8 5 11 7-11 7V5Z"/></symbol>
+      <symbol id="i-pause" viewBox="0 0 24 24"><path d="M8 5v14M16 5v14"/></symbol>
+      <symbol id="i-stop" viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="1"/></symbol>
+      <symbol id="i-restart" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 3-6.7M3 4v5h5"/></symbol>
+      <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+      <symbol id="i-minus" viewBox="0 0 24 24"><path d="M5 12h14"/></symbol>
+      <symbol id="i-x" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></symbol>
+      <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></symbol>
+      <symbol id="i-bell" viewBox="0 0 24 24"><path d="M18 9a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/></symbol>
+      <symbol id="i-flag" viewBox="0 0 24 24"><path d="M5 21V4M5 5c5-3 8 3 14 0v9c-6 3-9-3-14 0"/></symbol>
+      <symbol id="i-trophy" viewBox="0 0 24 24"><path d="M8 4h8v6a4 4 0 0 1-8 0V4Z"/><path d="M8 6H5v1a4 4 0 0 0 4 4M16 6h3v1a4 4 0 0 1-4 4M12 14v4M8 21h8M9 18h6"/></symbol>
+      <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></symbol>
+      <symbol id="i-mobile" viewBox="0 0 24 24"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/></symbol>
+      <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
+    </svg>
+
+    <div class="app-shell">
+      <header class="app-header">
+        <div class="brand" aria-label="Round Timer">
+          <span class="brand-mark"><svg class="icon"><use href="#i-stopwatch"/></svg></span>
+          <span>Round Timer</span>
+        </div>
+        <button class="icon-button" id="settings-button" type="button" aria-label="Ouvrir les réglages">
+          <svg class="icon"><use href="#i-gear"/></svg>
+        </button>
+      </header>
+
+      <main>
+        <section class="screen config-screen" id="config-screen" aria-labelledby="config-title">
+          <div class="screen-intro">
+            <p class="eyebrow">Prêt à s’entraîner ?</p>
+            <h1 id="config-title">Configure ta séance</h1>
+            <p>Programme tes rounds, puis lance sans rien toucher.</p>
+          </div>
+
+          <div class="mode-pill" aria-label="Mode séance actif">
+            <svg class="icon"><use href="#i-stopwatch"/></svg>
+            <span>Séance</span>
+          </div>
+
+          <section class="setting-card" aria-labelledby="work-title">
+            <div class="card-title">
+              <span class="card-icon effort"><svg class="icon"><use href="#i-flame"/></svg></span>
+              <div><h2 id="work-title">Effort</h2><p>Durée de chaque round</p></div>
+            </div>
+            <div class="time-controls" aria-label="Durée d’effort">
+              <div class="time-unit">
+                <button class="step-button" type="button" data-time="work" data-part="minutes" data-delta="1" aria-label="Ajouter une minute d’effort"><span>+</span></button>
+                <input id="work-minutes" class="time-input" data-input-time="work" data-part="minutes" type="number" inputmode="numeric" min="0" max="99" aria-label="Minutes d’effort" />
+                <span class="unit-label">min</span>
+                <button class="step-button" type="button" data-time="work" data-part="minutes" data-delta="-1" aria-label="Retirer une minute d’effort"><span>−</span></button>
+              </div>
+              <span class="time-separator" aria-hidden="true">:</span>
+              <div class="time-unit">
+                <button class="step-button" type="button" data-time="work" data-part="seconds" data-delta="1" aria-label="Ajouter une seconde d’effort"><span>+</span></button>
+                <input id="work-seconds" class="time-input" data-input-time="work" data-part="seconds" type="number" inputmode="numeric" min="0" max="59" aria-label="Secondes d’effort" />
+                <span class="unit-label">sec</span>
+                <button class="step-button" type="button" data-time="work" data-part="seconds" data-delta="-1" aria-label="Retirer une seconde d’effort"><span>−</span></button>
+              </div>
+            </div>
+          </section>
+
+          <section class="setting-card" aria-labelledby="rest-title">
+            <div class="card-title">
+              <span class="card-icon rest"><svg class="icon"><use href="#i-coffee"/></svg></span>
+              <div><h2 id="rest-title">Repos</h2><p>Entre chaque round</p></div>
+            </div>
+            <div class="time-controls" aria-label="Durée de repos">
+              <div class="time-unit">
+                <button class="step-button" type="button" data-time="rest" data-part="minutes" data-delta="1" aria-label="Ajouter une minute de repos"><span>+</span></button>
+                <input id="rest-minutes" class="time-input" data-input-time="rest" data-part="minutes" type="number" inputmode="numeric" min="0" max="99" aria-label="Minutes de repos" />
+                <span class="unit-label">min</span>
+                <button class="step-button" type="button" data-time="rest" data-part="minutes" data-delta="-1" aria-label="Retirer une minute de repos"><span>−</span></button>
+              </div>
+              <span class="time-separator" aria-hidden="true">:</span>
+              <div class="time-unit">
+                <button class="step-button" type="button" data-time="rest" data-part="seconds" data-delta="1" aria-label="Ajouter une seconde de repos"><span>+</span></button>
+                <input id="rest-seconds" class="time-input" data-input-time="rest" data-part="seconds" type="number" inputmode="numeric" min="0" max="59" aria-label="Secondes de repos" />
+                <span class="unit-label">sec</span>
+                <button class="step-button" type="button" data-time="rest" data-part="seconds" data-delta="-1" aria-label="Retirer une seconde de repos"><span>−</span></button>
+              </div>
+            </div>
+          </section>
+
+          <section class="setting-card rounds-card" aria-labelledby="rounds-title">
+            <div class="card-title">
+              <span class="card-icon neutral"><svg class="icon"><use href="#i-layers"/></svg></span>
+              <div><h2 id="rounds-title">Nombre de rounds</h2><p>De 1 à 100</p></div>
+            </div>
+            <div class="rounds-control">
+              <button class="round-adjust" id="rounds-minus" type="button" aria-label="Retirer un round"><svg class="icon"><use href="#i-minus"/></svg></button>
+              <output id="rounds-value" aria-live="polite">10</output>
+              <button class="round-adjust" id="rounds-plus" type="button" aria-label="Ajouter un round"><svg class="icon"><use href="#i-plus"/></svg></button>
+            </div>
+            <input id="rounds-slider" class="range-input" type="range" min="1" max="100" step="1" value="10" aria-label="Nombre de rounds" />
+            <div class="range-labels"><span>1</span><span>100</span></div>
+          </section>
+
+          <section class="summary-card" aria-labelledby="summary-title">
+            <p class="summary-label" id="summary-title">Durée totale de la séance</p>
+            <output id="total-duration" class="summary-total">14:30</output>
+            <div class="summary-stats">
+              <div><span>Effort total</span><strong id="total-work">10:00</strong></div>
+              <div><span>Repos total</span><strong id="total-rest">04:30</strong></div>
+              <div><span>Pauses</span><strong id="total-pauses">9</strong></div>
+            </div>
+          </section>
+
+          <button id="start-button" class="primary-button" type="button">
+            <svg class="icon"><use href="#i-play"/></svg>
+            <span>Lancer la séance</span>
+          </button>
+        </section>
+
+        <section class="screen timer-screen hidden" id="timer-screen" aria-live="off" aria-labelledby="timer-title">
+          <div class="timer-meta">
+            <span class="live-dot" aria-hidden="true"></span>
+            <span id="timer-mode-label">Séance en cours</span>
+            <button class="text-button" id="exit-session-button" type="button">Quitter</button>
+          </div>
+
+          <div class="timer-stage" id="timer-stage">
+            <svg class="progress-ring" viewBox="0 0 300 300" aria-hidden="true">
+              <circle class="ring-track" cx="150" cy="150" r="132" pathLength="100" />
+              <circle class="ring-progress" id="phase-ring" cx="150" cy="150" r="132" pathLength="100" />
+            </svg>
+            <div class="timer-inner">
+              <span class="phase-icon" id="phase-icon"><svg class="icon"><use href="#i-flame"/></svg></span>
+              <p class="phase-name" id="timer-title">EFFORT</p>
+              <p class="round-count" id="round-count">Round 1 / 10</p>
+              <output class="countdown" id="countdown">01:00</output>
+              <p class="countdown-hint" id="countdown-hint">Prêt</p>
+            </div>
+          </div>
+
+          <div class="timer-controls" aria-label="Contrôles de la séance">
+            <button class="circle-control" id="pause-button" type="button" aria-label="Mettre la séance en pause">
+              <svg class="icon" id="pause-icon"><use href="#i-pause"/></svg>
+              <span id="pause-label">Pause</span>
+            </button>
+            <button class="circle-control stop" id="stop-button" type="button" aria-label="Arrêter la séance">
+              <svg class="icon"><use href="#i-stop"/></svg>
+              <span>Arrêter</span>
+            </button>
+            <button class="circle-control" id="restart-button" type="button" aria-label="Recommencer la séance">
+              <svg class="icon"><use href="#i-restart"/></svg>
+              <span>Recommencer</span>
+            </button>
+          </div>
+
+          <section class="live-progress" aria-label="Progression globale">
+            <div class="live-progress-heading"><span>Temps écoulé</span><strong id="global-time">00:00 / 14:30</strong></div>
+            <div class="progress-bar"><span id="global-progress"></span></div>
+            <p id="wake-state"><svg class="icon"><use href="#i-sun"/></svg> Écran maintenu allumé si disponible</p>
+          </section>
+        </section>
+
+        <section class="screen complete-screen hidden" id="complete-screen" aria-labelledby="complete-title">
+          <span class="completion-badge"><svg class="icon"><use href="#i-trophy"/></svg></span>
+          <p class="eyebrow">Bien joué</p>
+          <h1 id="complete-title">Séance terminée !</h1>
+          <p class="completion-copy">Tu as tenu jusqu’au dernier round.</p>
+          <section class="result-card" aria-label="Bilan de la séance">
+            <div class="result-hero"><span>Durée prévue</span><strong id="result-total">14:30</strong></div>
+            <div class="result-grid">
+              <div><span>Rounds effectués</span><strong id="result-rounds">10</strong></div>
+              <div><span>Effort cumulé</span><strong id="result-work">10:00</strong></div>
+              <div><span>Repos cumulé</span><strong id="result-rest">04:30</strong></div>
+            </div>
+          </section>
+          <button id="again-button" class="primary-button" type="button"><svg class="icon"><use href="#i-restart"/></svg><span>Recommencer</span></button>
+          <button id="new-session-button" class="secondary-button" type="button">Nouvelle séance</button>
+        </section>
+      </main>
+    </div>
+
+    <div class="overlay hidden" id="settings-overlay" aria-hidden="true">
+      <aside class="settings-panel" role="dialog" aria-modal="true" aria-labelledby="settings-title">
+        <header class="drawer-header">
+          <div><p class="eyebrow">Personnalisation</p><h2 id="settings-title"><svg class="icon"><use href="#i-volume"/></svg> Sons & alertes</h2></div>
+          <button class="icon-button" id="close-settings-button" type="button" aria-label="Fermer les réglages"><svg class="icon"><use href="#i-x"/></svg></button>
+        </header>
+
+        <div class="settings-scroll">
+          <section class="setting-group">
+            <label class="switch-row"><span><strong>Sons activés</strong><small>Jouer les alertes de séance</small></span><input id="sound-enabled" data-sound-setting="enabled" type="checkbox" role="switch" /><i></i></label>
+            <label class="switch-row"><span><strong>10 dernières secondes</strong><small>Signal long avant la fin de l’effort</small></span><input data-sound-setting="tenSeconds" type="checkbox" role="switch" /><i></i></label>
+            <label class="switch-row"><span><strong>Compte à rebours</strong><small>Bips à 3, 2 et 1 seconde</small></span><input data-sound-setting="countdown" type="checkbox" role="switch" /><i></i></label>
+            <label class="switch-row"><span><strong>Gongs de transition</strong><small>À la fin de l’effort ou du repos</small></span><input data-sound-setting="transitions" type="checkbox" role="switch" /><i></i></label>
+            <label class="switch-row"><span><strong>Fin de séance</strong><small>Double gong après le dernier round</small></span><input data-sound-setting="complete" type="checkbox" role="switch" /><i></i></label>
+          </section>
+
+          <section class="setting-group volume-group">
+            <div class="setting-heading"><span><strong>Volume</strong><small>Réglage des alertes</small></span><output id="volume-value">70 %</output></div>
+            <input id="volume-range" class="range-input" type="range" min="0" max="100" value="70" aria-label="Volume des alertes" />
+          </section>
+
+          <section class="setting-group preview-group">
+            <p class="group-title">Écouter les alertes</p>
+            <div class="sound-grid">
+              <button type="button" data-preview="ten"><svg class="icon"><use href="#i-bell"/></svg>10 s</button>
+              <button type="button" data-preview="count"><svg class="icon"><use href="#i-volume"/></svg>Compte</button>
+              <button type="button" data-preview="transition"><svg class="icon"><use href="#i-flag"/></svg>Transition</button>
+              <button type="button" data-preview="complete"><svg class="icon"><use href="#i-trophy"/></svg>Fin</button>
+            </div>
+          </section>
+
+          <section class="setting-group">
+            <label class="switch-row"><span><strong>Garder l’écran allumé</strong><small>Disponible selon le navigateur</small></span><input id="wake-lock-toggle" type="checkbox" role="switch" /><i></i></label>
+          </section>
+
+          <section class="install-card">
+            <div class="install-icon"><svg class="icon"><use href="#i-mobile"/></svg></div>
+            <div><strong>Installer l’application</strong><p id="install-copy">Accès rapide et utilisation hors connexion.</p></div>
+            <button id="install-button" class="install-button" type="button">Installer</button>
+          </section>
+          <p class="browser-note"><svg class="icon"><use href="#i-info"/></svg> Les navigateurs limitent les alertes lorsque le téléphone est verrouillé ou l’application en arrière-plan.</p>
+        </div>
+      </aside>
+    </div>
+
+    <div class="overlay confirm-overlay hidden" id="confirm-overlay" aria-hidden="true">
+      <section class="confirm-card" role="dialog" aria-modal="true" aria-labelledby="confirm-title">
+        <span class="confirm-icon" id="confirm-icon"><svg class="icon"><use href="#i-stop"/></svg></span>
+        <h2 id="confirm-title">Arrêter la séance ?</h2>
+        <p id="confirm-text">La progression en cours sera perdue.</p>
+        <div class="confirm-actions"><button id="confirm-cancel" class="secondary-button" type="button">Annuler</button><button id="confirm-accept" class="danger-button" type="button">Arrêter</button></div>
+      </section>
+    </div>
+
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+    <script type="module" src="app.js"></script>
+  </body>
+</html>
